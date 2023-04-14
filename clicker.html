@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .trueleft{
+            background: url(fonl.jpg)no-repeat center /cover;
+            display: flex;
+            flex-direction: column;
+            width: 33vw;
+            height: 90vh;
+            border-bottom: 0.5vw solid rgb(11, 13, 30);
+        }
+        .lefts {
+            width: 34vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 20vw; 
+            border-left: 1vw solid rgb(11, 13, 30);
+            
+        }
+        .rights {
+            width: 33vw;
+            border-left: 1vw solid rgb(11, 13, 30);
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .upscore {
+            background-color: rgba(124, 225, 65, 0.6);
+            border: 0.4vw solid rgb(11, 13, 30);
+            border-left: 0;
+            width: 100%;
+            height: 10%;
+            font-size: 4vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        .scoreup {
+            background-color: rgba(124, 225, 65, 0.6);
+            border: 0.4vw solid rgb(11, 13, 30);
+            border-right: 0;
+            border-left: 0;
+            width: 100%;
+            height: 10%;
+            font-size: 4vw ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        .upgrades {
+            width: 100%;
+            height: 90%;
+            border-bottom: 0.5vw solid rgb(11, 13, 30);
+            font-size: 0.85vw;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+        .powerUp {
+            width: 100%;
+            height: 11vw;
+            border: 0.4vw solid  rgb(11, 13, 30);
+            border-left: 0;
+            border-top: 0;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            padding: 0 0.5vw 0 1.5vw;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        .cen {
+            
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .awards {
+            float: right;
+            width: 9vw;
+            height: 80%;
+            font-size: 1vw;
+            border: 0.2vw solid black;
+            border-radius: 25%;
+            background-color: darkred;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0.4vw 0.4vw 0.7vw black;
+            align-self: flex-start;
+            margin: 0.4vw 0.6vw 0 0;
+        }
+        .mom {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        .card-img-top {
+            width: 8vw;
+            height: 6vw;
+            border-radius: 10%;
+            box-shadow: 0px 0px  15px 5px rgb(9, 55, 155) ;
+        }
+        button {
+            border-radius:20%;
+            color: white;
+            background-color: black;
+            margin: 7.5vw 0 0 0;
+        }
+        .cn {
+            display: flex;
+            flex-direction: column;
+            width: 10vw;
+        }
+        .rowns {
+            display: flex;
+            flex-direction: row;
+        }
+        .under {
+            
+            width: 100vw;
+            height: 10vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        /* кнопка */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0, 0, 0.4);
+        }
+        .modal-content {
+            
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 1.5vw;
+            border: 1px solid #888;
+            width: 50%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 2vw;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* внутри кнопки */
+        .inimg{
+            width: 100px;
+            height: 100px;
+            margin: 30px 63px;
+        }
+        .ramkas {
+            background: url(ramka.png)no-repeat top left 0px /228px 228px;
+        }
+        /* конец кнопки */
+        .yamare {
+            width: 4vw;
+            height: 1.5vw;
+            font-size: 0.8vw;
+        }
+        .oak {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        /* ↓ статы ↓ */
+        .otdel {
+            display: flex;
+            flex-direction: row;    
+            justify-content: space-around;
+        }
+        .stats {
+            padding: 0.5vw;
+            font-size: 1vw;
+            font-family:sans-serif;
+            border-radius: 25%;
+            border: black solid 0.25vw;
+            width: 37%;
+            background-color: rgb(70, 86, 233);
+            margin-top: 1vw;
+        }
+        .changec {
+            transition: all 0.2s;
+        }
+        .puff {
+            transition: all 0.1s;
+        }
+        /* настройки */
+        .medal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0, 0, 0.4);
+        }
+        .modal-cont {
+            
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 1.5vw;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .clos {
+            color: #aaa;
+            float: right;
+            font-size: 2vw;
+            font-weight: bold;
+        }
+        .clos:hover,
+        .clos:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.1vw;
+            border: 0.2vw solid black;
+            border-radius: 30%;
+            background-color: white;
+            color: black;
+            width: 2.5vw;
+            height: 2.5vw;
+            margin: 1vw 1vw;
+            padding: 0 0 0.25vw 0 ;
+        }
+        .restart {
+            border-radius: 30%;
+            border: 0.4vw solid black;
+            background-color: green;
+            font-size: 2vw;
+            width: 20vw;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            transition: all 0.1s;
+        }   
+        .tosno {
+            font-size: 1vw;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="rowns">
+        <div class="trueleft">
+            <h1 style="margin: 4vw auto; font-size: 4vw; font-family:sans-serif ;">Статистика</h1>
+            <div class="otdel">
+                <div class="stats" id="clicksec"></div>
+                <div class="stats" id="allc"></div>
+            </div>
+            <div class="otdel">
+                <div class="stats" id="au"></div>
+                <div class="stats" id="pes"></div>
+            </div>
+           <div class="otdel">
+            <div class="stats" id="mnoz"></div>
+            <div class="stats" id="click"></div>
+           </div>
+           <div class="otdel">
+                <div class="stats" id="pigs"></div>
+                <div class="stats" id="shampir"></div>
+           </div>
+        </div>
+        <div class="lefts">
+            <div class="cen"><img src="smile.png" class="puff" style="object-fit:contain; width: 17vw;"></div>
+        </div>
+        <div class="rights">
+            <div class="upscore"></div>
+            <div class="upgrades"></div>    
+        </div>
+    </div>
+    <div class="under">
+        <button class="options" id="myOpt">⚙</button>
+        <button id="myButton" class="awards">достижения</button>
+    </div>
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" id="1c">&times;</span>
+            <h1>Достижения:</h1>
+            <div class="SUDA"></div>
+        </div>
+    </div>
+    <div class="medal" id="opt">
+        <div class="modal-cont">
+            <span class="clos" id="1c">&times;</span>
+            <h1>Что тут настраивать???</h1>
+            <div class="restart">Reset</div>
+            <div class="tosno"><p>Вы уверены? Безвозвратно будет сброшен весь прогресс. Чтобы продолжить нажмите ещё раз <i>Reset</i>.</p></div>
+        </div>
+    </div>
+    <script>
+        //функции
+        function visYear(yn){ //високосный год
+            if(yn % 400 == 0){
+                newDay = true;
+                return newDay;
+            } else if( yn % 100 != 0 && yn % 4 == 0){
+                newDay = true;
+                return newDay;
+            }
+        } 
+        let newDay = false;
+
+        function transfomTime(){
+            for (let i = 0; i < time.length; i++) {
+            if (time.charAt(i) != ':'){
+                arrt.push(time.charAt(i));
+                }
+            }
+            timeAn = parseInt(arrt.join(''));
+            arrt = [];
+        }
+        
+        function transfomDays(){
+            for (let i = 0; i < days.length; i++) {
+            if (days.charAt(i) != '-'){
+                arrt.push(days.charAt(i));
+                }
+            }
+            timeDay = arrt.join('');
+            arrt = [];
+        }
+        //переносы времени и время
+        
+        
+        let time;
+        let akey = '7a879ae248f24d79926ba69a6536e6fb';
+        let url = `https://api.ipgeolocation.io/timezone?apiKey=${akey}&tz=Europe/Minsk`;
+        
+        let timeAn;
+        let timeDay;
+
+        let misst = 0;
+        let missd = 0;
+
+        fetch(url)
+        .then(respons => {
+            return respons.json()
+        })
+        .then (function(data){
+            time = data.time_24;
+            days = data.date_time_ymd.slice(0, 10) ;
+            transfomTime();
+            transfomDays();
+            localStorage.setItem('days', timeDay);
+            localStorage.setItem('time', timeAn);
+            misst = timeAn;
+            missd = timeDay;
+        });
+
+        setInterval(() => {
+            fetch(url)
+            .then(respons => {
+                return respons.json()
+            })
+            .then (function(data){
+            time = data.time_24;
+            transfomTime();
+            transfomDays();
+            localStorage.setItem('days', timeDay);
+            localStorage.setItem('time', timeAn);
+            });
+
+        }, 9000);   
+
+        
+        if (localStorage.getItem('days') !== undefined  && localStorage.getItem('days') !== null) {
+            missd = localStorage.getItem('days');
+        }
+        if (localStorage.getItem('time') !== undefined && localStorage.getItem('time') !== null) {
+            misst = parseInt(localStorage.getItem('time'));
+        }
+        //СЕЙВИ ↑
+       
+        let upgcent = document.querySelector('.upgrades');
+        let but = document.querySelector('img');
+        let rich = document.querySelector('.upscore');
+
+        let tig = document.getElementById('clicksec');
+        let actyd = document.getElementById('allc');
+        let vseu = document.getElementById('au');
+        let pes = document.getElementById('pes');
+        let tm = document.getElementById('mnoz');
+        let ct = document.getElementById('click');
+        let svin = document.getElementById('pigs');
+        let shampur = document.getElementById('shampir');
+        let reset = document.querySelector('.restart')
+
+        let mon = 0;
+        if (localStorage.getItem('deng') != 0 && localStorage.getItem('deng') != null) {
+            mon = parseInt(localStorage.getItem('deng'))
+        } 
+
+        let upg = 1;
+        let mnoz = 1;
+        let persec = 0;
+
+        if (localStorage.getItem('mnoz') != undefined && localStorage.getItem('mnoz') != null) {
+            mnoz = parseFloat(localStorage.getItem('mnoz'));
+        } 
+        if (localStorage.getItem('upg') != undefined && localStorage.getItem('upg') != null) {
+            upg = parseInt(localStorage.getItem('upg'));
+        }
+        if (localStorage.getItem('persec') != undefined && localStorage.getItem('persec') != null) {
+            persec = parseInt(localStorage.getItem('persec'));
+        }
+
+        
+
+        let arrt = [];
+
+        //расчет того сколько вас не было
+        let amou = 0;
+        let aod = 0;
+        let fined = 0;
+        setTimeout(() => {
+            //пропущенные дни
+            if (missd != 0){
+                //года
+                let yer = parseInt(missd.slice(0,4));
+                let yern = parseInt(timeDay.slice(0,4));
+
+                //месяцы
+                let mont = parseInt(missd.slice(4, 6));
+                let montn = parseInt(timeDay.slice(4, 6));
+
+                //дни
+                let missed = parseInt(missd.slice(6,8));
+                let nowed = parseInt(timeDay.slice(6,8));
+                if (yern - yer != 0){
+                    for (let i = yer + 1; i < yern; i++){
+                        if (visYear(i)) {
+                            aod += 366;
+                        } else {
+                            aod += 365;
+                        }
+                    }
+                    for ( let i = mont; i <= 12; i++){
+                        switch(i){
+                    case 1: 
+                        amou = 31;
+                        break;
+                    case 2:  
+                        amou = 28;
+                        break;
+                    case 3:  
+                        amou = 31;
+                        break;
+                    case 4:  
+                        amou = 30;
+                        break;
+                    case 5:  
+                        amou = 31;
+                        break;
+                    case 6:  
+                        amou = 30;
+                        break;
+                    case 7:  
+                        amou = 31;
+                        break;
+                    case 8:  
+                        amou = 31;
+                        break;
+                    case 9:  
+                        amou = 30;
+                        break;
+                    case 10:  
+                        amou = 31;
+                        break;
+                    case 11:  
+                        amou = 30;
+                        break;
+                    case 12:  
+                        amou = 31;
+                        break;
+                    
+                }
+                        aod += amou;
+                    }
+                    for (let i = 1; i < montn; i++){
+                        switch(i){
+                    case 1: 
+                        amou = 31;
+                        break;
+                    case 2:  
+                        amou = 28;
+                        break;
+                    case 3:  
+                        amou = 31;
+                        break;
+                    case 4:  
+                        amou = 30;
+                        break;
+                    case 5:  
+                        amou = 31;
+                        break;
+                    case 6:  
+                        amou = 30;
+                        break;
+                    case 7:  
+                        amou = 31;
+                        break;
+                    case 8:  
+                        amou = 31;
+                        break;
+                    case 9:  
+                        amou = 30;
+                        break;
+                    case 10:  
+                        amou = 31;
+                        break;
+                    case 11:  
+                        amou = 30;
+                        break;
+                    case 12:  
+                        amou = 31;
+                        break;
+                    }
+                        aod += amou;
+                    }
+                    fined = aod + nowed - missed;
+                } else if (montn - mont != 0 ){
+                    let b = montn;
+                    for (let i = mont; i < b; i++){
+                        switch(i){
+                    case 1: 
+                        amou = 31;
+                        break;
+                    case 2:  
+                        if (visYear(yer)){
+                            amou = 29;
+                            break;
+                        }
+                        amou = 28;
+                        break;
+                    case 3:  
+                        amou = 31;
+                        break;
+                    case 4:  
+                        amou = 30;
+                        break;
+                    case 5:  
+                        amou = 31;
+                        break;
+                    case 6:  
+                        amou = 30;
+                        break;
+                    case 7:  
+                        amou = 31;
+                        break;
+                    case 8:  
+                        amou = 31;
+                        break;
+                    case 9:  
+                        amou = 30;
+                        break;
+                    case 10:  
+                        amou = 31;
+                        break;
+                    case 11:  
+                        amou = 30;
+                        break;
+                    case 12:  
+                        amou = 31;
+                        break;
+                    
+                }
+                    aod += amou;
+                    }
+                    fined = aod - missed + nowed;
+            } else {
+                    fined = nowed - missed; 
+                }
+            }
+            missedt = fined * 24 * 60 *60;
+            if (misst != 0) {
+                misst =  timeAn - misst + missedt;
+                mon += persec * misst;
+                rich.innerText = mon.toFixed(0);
+                localStorage.setItem('deng', mon);
+            }
+            
+        }, 1500); 
+
+        // клик
+        but.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            but.style.width = '15vw';
+            mon += mnoz * upg;   
+            rich.innerText = mon.toFixed(0); 
+            statistic.clicked++;
+            actyd.innerText = `Всего кликов: ${statistic.clicked}`;
+            localStorage.setItem('clicked', statistic.clicked);
+            setTimeout(() => {
+                but.style.width = '17vw';
+            }, 100);
+        })
+        // Денег в секунду
+        setInterval(() => {
+            mon += persec;
+            rich.innerText = mon.toFixed(0);
+            localStorage.setItem('deng', mon);
+            statistic.timeInGame++;
+            localStorage.setItem('timeInGame', statistic.timeInGame);
+            tig.innerText = `Времени в игре: ${statistic.timeInGame}`; 
+        }, 1000);
+        
+        let allupg = [
+            {
+                nameupg: "Свинка",
+                desc: "Купите помошника свинку для прокачки клика",
+                clickupg:1,
+                per:0,
+                ges:0,
+                imageupg: "pig.jpg",
+                price:100,
+                id:1
+            },
+            
+            {
+                nameupg: "Mushrooms",
+                desc: "Природа помогает вам собрать больше денег в секунду",
+                clickupg:0,
+                per:2,
+                ges:0,
+                imageupg: "thebelka.jpg",
+                price: 1000,
+                id:2
+            },
+
+            {
+                nameupg: "Модная шляпа",
+                desc: "Увеличивает множитель клика за счет красоты",
+                clickupg:0,
+                per:0,
+                ges:0.5,
+                imageupg: "hat.png",
+                price: 10000,
+                id:3
+            },
+            {
+                nameupg: "Единорог",
+                desc: "Радуга бум бум юху(+клик)",
+                clickupg:5,
+                per:0,
+                ges:0,
+                imageupg: "rog.jpg",
+                price: 25000,
+                id:4
+            },
+            {
+                nameupg:"Картошка",
+                desc: "ЗАСТАВЬ ЕЁ СТРАДАТЬ! РАДИ ДЕНЕГ!(+persec)",
+                clickupg:0,
+                per:10,
+                ges:0,
+                imageupg: "potato.jpg",
+                price: 50000,
+                id:5
+            },
+            {
+                nameupg:"Spooderman",
+                desc: "Искривляет пространство, вследствии чего растет множитель",
+                clickupg:0,
+                per:0,
+                ges:1,
+                imageupg: "Spooderman.jpg",
+                price: 100000,
+                id:6
+            },
+            {
+                nameupg:"Шампур",
+                desc:"Ух сейчас бы свинку и был бы шашлычек(+клик)",
+                clickupg:15,
+                per:0,
+                ges:0,
+                imageupg: "shampur.jpg",
+                price: 200000,
+                id:7
+            },
+            {
+                nameupg:"SANIC",
+                desc:"GOTTA GO FAST!(+PERSEC!)",
+                clickupg:0,
+                per:50,
+                ges:0,
+                imageupg: "sanic.jpg",
+                price: 500000,
+                id:8
+            },
+            {
+                nameupg:"Шашлычек",
+                desc:"То чего всегда не хватает(требует 1 свинку и шампур)",
+                clickupg:75,
+                per:75,
+                ges:5,
+                imageupg: "shaslik.jpeg",
+                price: 1000000,
+                id:9
+            }
+        ]
+        for ( let i = 0; i < allupg.length; i++){
+            if (localStorage.getItem(`${i}`)) {
+                const val = JSON.parse(localStorage.getItem(`${i}`));
+                allupg[i].price = parseInt(val.price); 
+        }
+        }
+        
+        let statistic = {
+            clicked: 0,
+            timeInGame: 0,
+            boughtupg: 0,
+            svinok: 0,
+            shamp: 0
+        }
+        if (localStorage.getItem('boughtupg') != undefined && localStorage.getItem('boughtupg') !== null) {
+            statistic.boughtupg = parseInt(localStorage.getItem('boughtupg'));
+        } 
+        if (localStorage.getItem('clicked') != undefined && localStorage.getItem('clicked') !== null) {
+            statistic.clicked = parseInt(localStorage.getItem('clicked'));
+        }
+        if (localStorage.getItem('timeInGame') != undefined && localStorage.getItem('timeInGame') !== null) {
+            statistic.timeInGame = parseInt(localStorage.getItem('timeInGame'));
+        }
+        if (localStorage.getItem('svinok') != undefined && localStorage.getItem('svinok') !== null) {
+            statistic.svinok = parseInt(localStorage.getItem('svinok'));
+        }
+
+        function cutih(arr){
+            for (let item = 0; item < arr.length; item++) {
+                let div = document.createElement('div');
+                let diiv = document.createElement('div');
+                div.classList.add('powerUp');
+                let h2 = document.createElement('h2');
+                let p = document.createElement('p');
+                let img = document.createElement('img');
+                let p2 = document.createElement('p');
+                img.classList.add('card-img-top');
+
+                h2.innerHTML = arr[item].nameupg;
+                p.innerHTML = arr[item].desc;
+                p2.innerHTML = `<b>Цена:</b>${arr[item].price}`
+                img.src = arr[item].imageupg;
+                diiv.classList.add('cn')
+
+                upgcent.append(div);
+                div.append(diiv);
+                diiv.append(h2);
+                diiv.append(p);
+                diiv.append(p2);
+                const btn = document.createElement('button');
+                btn.classList.add('yamare');
+                btn.innerText = 'Купить';
+                btn.addEventListener('click', () => buy(arr[item], p2, item,btn))
+                /* наводка мыши */
+                btn.classList.add('changec');
+                btn.onmouseover = function(e){
+                    let target = e.target;
+                    if (mon - arr[item].price >=0){
+                        target.style.background = 'green';
+                        if (arr[item].id == 9){
+                            if (statistic.svinok <= 0 && statistic.shamp <= 0) {
+                                target.style.background = 'red';
+                            }   
+                        }
+                    } else {
+                        target.style.background = 'red';
+                    }
+                }
+                btn.onmouseout = function(e){
+                    e.target.style.background = 'black';
+                }
+                /* конец */
+                div.append(btn);
+                div.append(img);
+                
+            }
+        }
+
+        tig.innerText = `Времени в игре: ${statistic.timeInGame}`;
+        actyd.innerText = `Всего кликов: ${statistic.clicked}`;
+        vseu.innerText = `Всего Прокачек: ${statistic.boughtupg}`;
+        pes.innerText = `Денег в секунду: ${persec}`;
+        tm.innerText = `Множитель клика: ${mnoz.toFixed(2)}`;
+        ct.innerText = `Денег с клика: ${(mnoz * upg).toFixed(0)}`;
+        svin.innerText = `Свинок в загоне: ${statistic.svinok}`; 
+        shampur.innerText = `Шампуров: ${statistic.shamp}`; 
+        cutih(allupg);
+
+        function buy(obj, p2, i,btn){
+            if (mon - obj.price >= 0) {
+
+                btn.style.fontSize = '0.6vw';
+                btn.style.width = '3vw';
+                btn.style.height = '1vw';
+                setTimeout(() => {
+                    btn.style.width = '4vw';
+                    btn.style.height = '1.5vw';
+                    btn.style.fontSize = '0.8vw';
+                }, 100);
+                if (obj.id == 9 ){
+                    if (statistic.svinok > 0 && statistic.shamp > 0) {
+                        statistic.svinok--;
+                        statistic.shamp--;
+                        svin.innerText = `Свинок в загоне: ${statistic.svinok}`; 
+                        localStorage.setItem('svinok', statistic.svinok);
+                        shampur.innerText = `Шампуров: ${statistic.shamp}`; 
+                        localStorage.setItem('shamp', statistic.shamp);
+                } else { 
+                    return
+                }
+                }   
+                
+                mon -= obj.price;
+                rich.innerText = mon.toFixed(0); 
+                
+                mnoz  += obj.ges;
+                upg += obj.clickupg;
+                persec += obj.per;
+                localStorage.setItem('mnoz', mnoz.toFixed(2));
+                localStorage.setItem('upg', upg);
+                localStorage.setItem('persec', persec);
+                
+                if (obj.id == 1){
+                    statistic.svinok++;
+                    svin.innerText = `Свинок в загоне: ${statistic.svinok}`; 
+                    localStorage.setItem('svinok', statistic.svinok);
+                }
+                if (obj.id == 7) {
+                    statistic.shamp++;
+                    shampur.innerText = `Шампуров: ${statistic.shamp}`; 
+                    localStorage.setItem('shamp', statistic.shamp);
+                }
+                obj.price = Math.floor(obj.price * 1.1);
+                p2.innerHTML = `<b>Цена:</b>${obj.price}`
+                statistic.boughtupg++;
+                localStorage.setItem('boughtupg', statistic.boughtupg);
+                vseu.innerText = `Всего Прокачек: ${statistic.boughtupg}`
+                pes.innerText = `Денег в секунду: ${persec}`;
+                tm.innerText = `Множитель клика: ${mnoz.toFixed(2)}`;
+                ct.innerText = `Денег с клика: ${(mnoz * upg).toFixed(0)}`;
+                localStorage.setItem( `${i}`, JSON.stringify(obj));
+                if (mon - obj.price < 0) {
+                    btn.style.background = 'red';
+                }
+            }
+        }
+    
+    </script>
+    <script src="button.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>
